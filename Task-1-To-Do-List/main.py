@@ -1,24 +1,20 @@
-
 tasks = []
 task_id = 1
 
 while True:
-    print("\n========== TO-DO LIST ==========")
+    print("\n===== TO-DO LIST =====")
     print("1. Add Task")
     print("2. View Tasks")
-    print("3. Mark Task as Completed")
+    print("3. Complete Task")
     print("4. Exit")
 
-    choice = input("Enter your choice: ")
+    choice = input("Choose an option: ")
 
     if choice == "1":
-        description = input("Enter your task: ").strip()
+        description = input("Enter task description: ").strip()
 
-        if not description:
-            print("Task cannot be empty!")
-
-        elif any(task["description"].lower() == description.lower() for task in tasks):
-            print("Task is already added!")
+        if description == "":
+            print("Please enter a task.")
 
         else:
             task = {
@@ -29,47 +25,59 @@ while True:
 
             tasks.append(task)
             task_id += 1
+
             print("Task added successfully!")
 
     elif choice == "2":
-        if not tasks:
-            print("No tasks available!")
+        if len(tasks) == 0:
+            print("No tasks found.")
 
         else:
+            print("\nYour Tasks:")
+
             for task in tasks:
-                status = "Completed" if task["completed"] else "Pending"
-                print(f'ID: {task["id"]} | {task["description"]} | {status}')
+                if task["completed"]:
+                    status = "Completed"
+                else:
+                    status = "Pending"
+
+                print(f'{task["id"]}. {task["description"]} - {status}')
 
     elif choice == "3":
-        if not tasks:
-            print("No tasks available!")
+        if len(tasks) == 0:
+            print("No tasks available to complete.")
 
         else:
             for task in tasks:
-                status = "Completed" if task["completed"] else "Pending"
-                print(f'ID: {task["id"]} | {task["description"]} | {status}')
+                if task["completed"]:
+                    status = "Completed"
+                else:
+                    status = "Pending"
+
+                print(f'{task["id"]}. {task["description"]} - {status}')
 
             try:
-                selected_id = int(input("Enter task ID: "))
+                selected_id = int(input("Enter task ID to complete: "))
 
                 for task in tasks:
                     if task["id"] == selected_id:
                         if task["completed"]:
-                            print("Task is already completed!")
+                            print("This task is already completed.")
                         else:
                             task["completed"] = True
-                            print("Task marked as completed!")
+                            print("Task completed successfully!")
                         break
+
                 else:
-                    print("Invalid task ID!")
+                    print("Task ID not found.")
 
             except ValueError:
-                print("Please enter a valid number!")
+                print("Please enter a valid task ID.")
 
     elif choice == "4":
-        print("Thank you for using To-Do List!")
+        print("Thank you for using the To-Do List!")
         break
 
     else:
-        print("Invalid choice!")
+        print("Invalid choice. Please try again.")
 

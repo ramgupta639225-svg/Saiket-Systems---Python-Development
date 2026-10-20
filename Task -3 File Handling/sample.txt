@@ -1,0 +1,4 @@
+
+Python is easy to learn.
+we am learning Python.
+Python is useful for backend development.
