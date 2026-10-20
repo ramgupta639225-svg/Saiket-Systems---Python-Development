@@ -1,18 +1,21 @@
-
 def read_file(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             content = file.read()
-            print("\nFile Content:")
-            print(content)
-            return content
+
+        print("\nFile Content:")
+        print(content)
+
+        return content
 
     except FileNotFoundError:
-        print("Error: File not found!")
+        print("File not found!")
+
     except PermissionError:
-        print("Error: Permission denied!")
+        print("Permission denied!")
+
     except OSError as error:
-        print(f"Error reading file: {error}")
+        print("Error:", error)
 
     return None
 
@@ -20,10 +23,10 @@ def read_file(filename):
 def find_word(content):
     word = input("Enter word to find: ").strip()
 
-    if not word:
-        print("Search word cannot be empty!")
+    if word == "":
+        print("Please enter a word.")
     elif word.lower() in content.lower():
-        print("Word found in the file!")
+        print("Word found!")
     else:
         print("Word not found!")
 
@@ -32,32 +35,33 @@ def replace_word(filename, content):
     old_word = input("Enter word to replace: ")
     new_word = input("Enter new word: ")
 
-    if not old_word:
-        print("Word to replace cannot be empty!")
+    if old_word == "":
+        print("Please enter a word to replace.")
         return
 
-    if old_word.lower() not in content.lower():
-        print("Word not found! File was not changed.")
+    if old_word not in content:
+        print("Word not found. File was not changed.")
         return
 
-    updated_content = content.replace(old_word, new_word)
+    content = content.replace(old_word, new_word)
 
     try:
         with open(filename, "w", encoding="utf-8") as file:
-            file.write(updated_content)
+            file.write(content)
 
         print("File updated successfully!")
 
     except PermissionError:
-        print("Error: Permission denied!")
+        print("Permission denied!")
+
     except OSError as error:
-        print(f"Error saving file: {error}")
+        print("Error saving file:", error)
 
 
 filename = "sample.txt"
 
 while True:
-    print("\n========== FILE HANDLING TOOL ==========")
+    print("\n===== FILE HANDLING TOOL =====")
     print("1. Read File")
     print("2. Find Word")
     print("3. Replace Word")
@@ -86,3 +90,4 @@ while True:
 
     else:
         print("Invalid choice! Please select 1 to 4.")
+
