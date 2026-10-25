@@ -29,4 +29,3 @@ while True:
         print("Total attempts:", attempts)
         break
 
-        
